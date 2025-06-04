@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from prometheus_flask_exporter import PrometheusMetrics
+
 import psycopg2
 import os
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 def get_db_connection():
     conn = psycopg2.connect(
         host=os.environ.get("DB_HOST", "localhost"),
